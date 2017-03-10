@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run server\" \"cd client && npm start\" ",
-    "server": "node ./bin/www"
+    "server": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -12,7 +12,9 @@
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "hbs": "~4.0.1",
+    "mongodb": "^2.2.24",
     "morgan": "~1.7.0",
+    "node-fetch": "^1.6.3",
     "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
