@@ -1,0 +1,31 @@
+.searchbar {
+  box-shadow: 0 2px 5px rgba(0,0,0, 0.5);
+  display: flex;
+  justify-content: space-between;
+
+  perspective: 300px;
+}
+
+.searchbar input,
+.searchbar button {
+  padding: 20px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchbar input {
+  width: 100%;
+}
+
+.searchbar button {
+  color: white;
+  background: #6dace0;
+  transition: all 0.3s;
+}
+
+.searchbar button:hover {
+  transform: scale(1.2) rotateY(-10deg);
+  box-shadow: 0 2px 5px rgba(0,0,0, 0.5);
+  background-color: #88bfec;
+}

@@ -26,7 +26,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-db.connect('mongodb://localhost:27017/mydatabase', function(err) {
+db.connect('mongodb://localhost:27017/sf_movies', function(err) {
   if (err) {
     console.log('unable to connect to Mongo');
     process.exit(1);

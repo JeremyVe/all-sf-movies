@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run server\" \"cd client && npm start\" ",
-    "server": "nodemon ./bin/www"
+    "server": "nodemon ./bin/www",
+    "createSeedData": "node ./task/create_seed_data.js",
+    "seed": "node ./task/seed.js"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
+    "csv-write-stream": "^2.0.0",
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "hbs": "~4.0.1",
