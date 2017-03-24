@@ -1,5 +1,5 @@
 import React from 'react';
-import './movie-info.css';
+import './movie_info.css';
 
 class MovieInfo extends React.Component {
   render() {
@@ -12,6 +12,10 @@ class MovieInfo extends React.Component {
       </div>
     )
   }
+}
+
+MovieInfo.propTypes = {
+  movie: React.PropTypes.object.isRequired,
 }
 
 export default MovieInfo;

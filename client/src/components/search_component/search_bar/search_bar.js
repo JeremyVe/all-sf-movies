@@ -1,18 +1,11 @@
 import React from 'react';
-import './search-bar.css';
+import './search_bar.css';
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {searchText: ''};
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.state.searchText !== nextProps.movieTitle) {
-  //     console.log('run')
-  //     this.textInput.value = nextProps.movieTitle;
-  //   }
-  // }
 
   updateAutoComplete = evt => {
     let searchText = evt.target.value;
@@ -23,10 +16,10 @@ class SearchBar extends React.Component {
     this.props.updateAutoComplete(searchText);
   }
 
-  hideAutoComplete = () => {
+  inhideAutoComplete = () => {
     setTimeout(() => {
       this.props.hideAutoComplete();
-    }, 30)
+    }, 1000)
   }
 
   searchMovie = () => {
@@ -37,9 +30,8 @@ class SearchBar extends React.Component {
     return (
       <div className='searchbar'>
         <input type='text' placeholder='Enter a movie name...'
-                           ref={input => this.textInput = input}
                            onChange={this.updateAutoComplete}
-                           onBlur={this.hideAutoComplete} />
+                           onBlur={this.inhideAutoComplete} />
         <button onClick={this.searchMovie}>Search</button>
       </div>
     )

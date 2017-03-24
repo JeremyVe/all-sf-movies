@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-// var fetchMoviesJob = require('./task/update_movies_job');
-// fetchMoviesJob.checkForContentUpdate();
 
 var index = require('./routes/index');
 var movies = require('./routes/movies');
@@ -19,16 +17,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// if (process.env.NODE_END === 'production') {
+  app.use(express.static('client/build'));
+// }
+
 app.use('/', index);
 app.use('/movie', movie);
-app.use('/movies', movies);
+app.use('/movies.:format', movies);
 
 
 // catch 404 and forward to error handler

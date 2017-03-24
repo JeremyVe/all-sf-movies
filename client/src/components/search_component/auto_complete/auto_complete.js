@@ -1,7 +1,14 @@
 import React from 'react';
-import './auto-complete.css';
+import './auto_complete.css';
 
 class AutoComplete extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: props.movies,
+      autoCompleteList: props.movies,
+    }
+  }
 
   selectMovie = (evt) => {
     const title = evt.target.innerHTML.toLowerCase();
@@ -20,6 +27,10 @@ class AutoComplete extends React.Component {
       </div>
     )
   }
+}
+
+AutoComplete.propTypes = {
+
 }
 
 export default AutoComplete;

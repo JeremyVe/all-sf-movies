@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('sf-movies:server');
 var http = require('http');
 var db = require('../db');
+var config = require('../config');
 
 /**
  * Get port from environment and store in Express.
@@ -20,13 +21,14 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-db.connect('mongodb://localhost:27017/sf_movies', function(err) {
+db.connect(config.DB_HOST, function(err) {
   if (err) {
     console.log('unable to connect to Mongo');
     process.exit(1);

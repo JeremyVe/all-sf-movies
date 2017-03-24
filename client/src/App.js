@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Map from './components/map/map';
-import SearchComponent from './components/search-component/search-component';
-import MovieInfo from './components/movie-info/movie-info';
-import List from './components/list/list';
+import SearchComponent from './components/search_component/search_component';
+import PanelInfo from './components/panel_info/panel_info';
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = { movie: {}, movies: [], locations: [] }
   }
 
   getMovies() {
-    fetch('/movies')
+    fetch('/movies.json')
     .then(data => data.json())
     .then(movies => {
       this.setState({
@@ -26,11 +24,10 @@ class App extends Component {
     })
   }
 
-  getMovie = (id) => {
+  getMovie = id => {
     fetch('/movie/' + id)
     .then(data => data.json())
     .then(data => {
-      // Todos : get movie + locations
       this.setState({
         movie: data.movie,
         locations: data.locations
@@ -46,7 +43,6 @@ class App extends Component {
   }
 
   render() {
-    const movieInfoNode = this.state.movie.title ? <MovieInfo movie={this.state.movie} /> : null;
     return (
       <div>
           <div className='nav'>
@@ -56,8 +52,7 @@ class App extends Component {
             <Map locations={this.state.locations} />
             <div className='search-panel'>
               <SearchComponent movies={this.state.movies} getMovie={this.getMovie} />
-              {movieInfoNode}
-              <List movie={this.state.movie} locations={this.state.locations} />
+              <PanelInfo movie={this.state.movie} locations={this.state.locations} />
             </div>
           </div>
       </div>

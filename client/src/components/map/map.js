@@ -1,10 +1,10 @@
 import React from 'react';
+import './map.css';
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.markers = [];
-    this.map;
   }
 
   componentDidMount() {
@@ -17,12 +17,11 @@ class Map extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.locations !== nextProps.locations) {
-      console.log('cleaning old markers')
       this.markers.forEach(marker => {
         marker.setMap(null);
       })
       this.markers = [];
-      console.log('adding new markers')
+
       nextProps.locations.forEach(location => {
         let latLng = new window.google.maps.LatLng(location.lat, location.lng);
         let marker = new window.google.maps.Marker({
@@ -41,6 +40,10 @@ class Map extends React.Component {
       <div id='map'>Map !</div>
     )
   }
+}
+
+Map.propTypes = {
+  locations: React.PropTypes.array.isRequired
 }
 
 export default Map;

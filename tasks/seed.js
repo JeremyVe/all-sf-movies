@@ -1,9 +1,11 @@
-var movies = require('../data/movies.json');
-var db = require('../db');
-var ObjectId = require('mongodb').ObjectId;
+let movies = require('../data/movies.json');
+let db = require('../db');
+let movieHelper = require('../utilities/movie_helper');
+let config = require('../config');
+let async = require('async');
 
 const seedDatabase = () => {
-  db.connect('mongodb://localhost:27017/sf_movies', function(err) {
+  db.connect(config.DB_HOST, function(err) {
     if (err) {
       console.log('unable to connect to Mongo');
       process.exit(1);
@@ -13,87 +15,57 @@ const seedDatabase = () => {
   })
 }
 
+
 const saveMovies = () => {
-  // recursion
-  saveNextMovie();
-}
-
-const saveNextMovie = () => {
-  let movie = movies.pop();
-
-  if (!movie) {
-    console.log('finish seeding');
-    db.close();
-    process.exit();
-  } else {
-    saveMovie(movie);
-  }
+  async.forEachSeries(movies, function(movie, callback) {
+    saveMovie(movie, callback)
+  }, function(err) {
+    if (err) return console.log('error', err);
+    exit();
+  })
 }
 
 
-const saveMovie = movie => {
-  const title = parseTitle(movie);
-  db.get().collection('movies').findOne({title: title})
-  .then(function(record) {
-    if ( record ) {
-      createAddressOnly(title, movie);
+const saveMovie = (movie, callback) => {
+  movie.clean_title = movieHelper.cleanTitle(movie.title);
+
+  movieHelper.getByTitle(movie.clean_title)
+  .then(movie_record => {
+    if (movie_record) {
+      movie.id = movie_record._id;
+      createLocationOnly(movie, callback);
     } else {
-      createMovieAndAddress(title, movie);
+      createMovieAndLocation(movie, callback);
     }
-    // save next movie (recursive call)
-    return saveNextMovie();
   })
 }
 
 
-const parseTitle = movie => {
-  let index = movie.title.toLowerCase().indexOf('season');
-  if ( index > -1) {
-    return movie.title.substring(0, index).replace(/[,|-]/, '').trim();
-  }
-  return movie.title;
+const createLocationOnly = (movie, callback) => {
+  return movieHelper.createLocation(movie, callback);
 }
 
 
-const createAddressOnly = (title, movie) => {
-  db.get().collection('movies').findOne({title: title})
-  .then(function(record) {
-    return saveAddress(record, movie);
-  })
-  .catch(err => {
-    console.log('didnt save movie');
+const createMovieAndLocation = (movie, callback) => {
+  return movieHelper.createMovie(movie)
+  .then(movie_record => {
+    movie.id = movie_record.insertedId;
+    return movieHelper.createLocation(movie, callback);
   })
 }
 
-
-const createMovieAndAddress = (title, movie) => {
-  db.get().collection('movies').insertOne({title: title, writer: movie.writer,
-                                           release_year: movie.release_year, production_company: movie.production_company,
-                                           director: movie.director, actor_1: movie.actor_1, actor_2: movie.actor_2,
-                                           actor_3: movie.actor_3})
-  .then(function(record) {
-    return saveAddress(record, movie);
-  })
-  .catch(err => {
-    console.log('didnt save movie');
-  })
-}
-
-
-const saveAddress = (record, movie) => {
-  return db.get().collection('locations').insertOne({
-    title: movie.title,
-    address: movie.locations,
-    fun_facts: movie.fun_facts,
-    lat: movie.lat,
-    lng: movie.lng,
-    movie_id: ObjectId(record._id)
-  })
-}
 
 const resetDatabase = () => {
   db.get().collection('movies').remove({});
   db.get().collection('locations').remove({});
 }
+
+
+const exit = () => {
+  console.log('finish seeding :)');
+  db.close();
+  process.exit();
+}
+
 
 seedDatabase();

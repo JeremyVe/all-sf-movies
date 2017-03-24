@@ -1,2 +1,4 @@
 node_modules/
 .DS_Store
+config/development.js
+config/test.js

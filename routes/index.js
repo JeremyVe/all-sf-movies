@@ -1,14 +1,13 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
+let path = require('path');
 
-var db = require('../db');
+let db = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var food = db.get().collection('movies').find().toArray(function(err, docs) {
-    console.log(docs);
-  })
-  res.render('index', { title: 'Express' });
+  res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
+  //res.render('index', { title: 'Express' });
 });
 
 module.exports = router;

@@ -1,0 +1,17 @@
+.address-list {
+  height: 70vh;
+  overflow: scroll;
+}
+
+.list-item h3 {
+  font-weight: 100;
+}
+
+.list-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.list-item:hover {
+  background-color: #a4bfd4;
+}

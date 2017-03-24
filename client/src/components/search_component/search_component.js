@@ -1,7 +1,7 @@
 import React from 'react';
-import SearchBar from './search-bar/search-bar';
-import AutoComplete from './auto-complete/auto-complete';
-import './search-component.css';
+import SearchBar from './search_bar/search_bar';
+import AutoComplete from './auto_complete/auto_complete';
+import './search_component.css';
 
 class Search extends React.Component {
   constructor(props) {
@@ -52,6 +52,11 @@ class Search extends React.Component {
       </div>
     )
   }
+}
+
+Search.propTypes = {
+  movies: React.PropTypes.array.isRequired,
+  getMovie: React.PropTypes.func.isRequired,
 }
 
 export default Search;
