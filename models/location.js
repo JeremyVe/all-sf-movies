@@ -1,5 +1,7 @@
-let db = require('../db');
-let ObjectId = require('mongodb').ObjectId;
+'use strict';
+
+const db = require('../db');
+const ObjectId = require('mongodb').ObjectId;
 
 
 exports.getLocations = movie_id => {

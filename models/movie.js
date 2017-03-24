@@ -1,6 +1,8 @@
-let db = require('../db');
-let ObjectId = require('mongodb').ObjectId;
-let Location = require('./location');
+'use strict';
+
+const db = require('../db');
+const ObjectId = require('mongodb').ObjectId;
+const Location = require('./location');
 
 exports.getAll = () => {
   return db.get().collection('movies').find({}, {title: 1}).toArray();

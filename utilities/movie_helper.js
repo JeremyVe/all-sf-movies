@@ -1,7 +1,9 @@
-let fetch = require('node-fetch');
-var config = require('../config');
-let Movie = require('../models/movie');
-let Location = require('../models/location');
+'use strict';
+
+const fetch = require('node-fetch');
+const config = require('../config');
+const Movie = require('../models/movie');
+const Location = require('../models/location');
 
 
 exports.getLastUpdateDate = () => {

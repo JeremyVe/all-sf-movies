@@ -1,10 +1,10 @@
-let express = require('express');
-let router = express.Router();
-let movieModel = require('../models/movie');
+const express = require('express');
+const router = express.Router();
+const movieModel = require('../models/movie');
 
 
 router.get('/:id', function(req, res, next) {
-  let id = req.params.id;
+  const id = req.params.id;
   movieModel.getMovie(id)
   .then(function(locations) {
     res.json(locations);

@@ -1,8 +1,10 @@
-let movies = require('../data/movies.json');
-let db = require('../db');
-let movieHelper = require('../utilities/movie_helper');
-let config = require('../config');
-let async = require('async');
+'use strict';
+
+const movies = require('../data/movies.json');
+const db = require('../db');
+const movieHelper = require('../utilities/movie_helper');
+const config = require('../config');
+const async = require('async');
 
 const seedDatabase = () => {
   db.connect(config.DB_HOST, function(err) {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import movie_helper from './helpers/movie';
 import './App.css';
 
+import Nav from './components/nav/nav';
 import Map from './components/map/map';
 import SearchComponent from './components/search_component/search_component';
 import PanelInfo from './components/panel_info/panel_info';
@@ -8,39 +10,37 @@ import PanelInfo from './components/panel_info/panel_info';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { movie: {}, movies: [], locations: [] }
+    this.state = { movie: {}, movies: [], locations: [], selectedLocationId: '' }
   }
 
   getMovies() {
-    fetch('/movies.json')
-    .then(data => data.json())
+    movie_helper.getMovies()
     .then(movies => {
       this.setState({
         movies: movies
       })
     })
-    .catch(err => {
-      console.log('error fetching movie list :', err)
-    })
   }
 
   getMovie = id => {
-    fetch('/movie/' + id)
-    .then(data => data.json())
+    movie_helper.getMovie(id)
     .then(data => {
       this.setState({
         movie: data.movie,
         locations: data.locations
       })
     })
-    .catch(err => {
-      console.log('error fetching movie info :', err)
-    })
   }
 
   resetMovie = () => {
     this.setState({
       movie: {}
+    })
+  }
+
+  selectLocation = id => {
+    this.setState({
+      selectedLocationId: id
     })
   }
 
@@ -51,14 +51,12 @@ class App extends Component {
   render() {
     return (
       <div>
-          <div className='nav'>
-            <h2>SF Movies</h2>
-          </div>
+          <Nav />
           <div className='App'>
-            <Map locations={this.state.locations} />
+            <Map locations={this.state.locations} selectedLocationId={this.state.selectedLocationId} />
             <div className='search-panel'>
               <SearchComponent movies={this.state.movies} getMovie={this.getMovie} resetMovie={this.resetMovie} />
-              <PanelInfo movie={this.state.movie} locations={this.state.locations} />
+              <PanelInfo movie={this.state.movie} locations={this.state.locations} selectLocation={this.selectLocation} />
             </div>
           </div>
       </div>

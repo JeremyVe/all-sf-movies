@@ -1,6 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let movieModel = require('../models/movie');
+const express = require('express');
+const router = express.Router();
+const movieModel = require('../models/movie');
 
 router.get('/', function(req, res, next) {
   movieModel.getAll()

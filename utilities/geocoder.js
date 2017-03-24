@@ -1,4 +1,6 @@
-let movieHelper = require('./movie_helper');
+'use strict';
+
+const movieHelper = require('./movie_helper');
 
 let movies = [];
 let job_array = [];

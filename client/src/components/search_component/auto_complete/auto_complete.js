@@ -16,9 +16,7 @@ class AutoComplete extends React.Component {
   }
 
   render() {
-    const movieNodes = this.props.movies.map(movie => {
-      return <li key={movie._id} data-id={movie._id}>{movie.title}</li>
-    })
+    const movieNodes = this.props.movies.map(movie => <li key={movie._id} data-id={movie._id}>{movie.title}</li>)
     return (
       <div className={this.props.hideList ? 'hide' : ''}>
         <ul className='autocomplete-list' onClick={this.selectMovie}>

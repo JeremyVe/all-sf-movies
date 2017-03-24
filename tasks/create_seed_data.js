@@ -1,7 +1,9 @@
-let fetch = require('node-fetch');
-let writer = require('../utilities/json_writer');
-let geocoder = require('../utilities/geocoder');
-let movieHelper = require('../utilities/movie_helper');
+'use strict';
+
+const fetch = require('node-fetch');
+const writer = require('../utilities/json_writer');
+const geocoder = require('../utilities/geocoder');
+const movieHelper = require('../utilities/movie_helper');
 
 
 const createSeedData = function() {

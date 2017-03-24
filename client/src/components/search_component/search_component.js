@@ -1,4 +1,5 @@
 import React from 'react';
+import movie_helper from '../../helpers/movie';
 import SearchBar from './search_bar/search_bar';
 import AutoComplete from './auto_complete/auto_complete';
 import './search_component.css';
@@ -14,7 +15,7 @@ class Search extends React.Component {
 
 
   updateAutoComplete = searchText => {
-    const autoCompleteList = this.props.movies.filter(movie => movie.title.toLowerCase().includes(searchText));
+    const autoCompleteList = movie_helper.filterMovies(this.props.movies, searchText);
     this.setState({
       hideAutoComplete: false,
       autoCompleteList: autoCompleteList
@@ -22,8 +23,7 @@ class Search extends React.Component {
   }
 
   searchMovie = searchText => {
-    console.log('hello kimmm')
-    const movieResult = this.props.movies.find(movie => movie.title.toLowerCase().includes(searchText));
+    const movieResult = movie_helper.findMovie(this.props.movies, searchText);
     if (!!movieResult) {
       this.setState({
         movieTitle: movieResult.title,

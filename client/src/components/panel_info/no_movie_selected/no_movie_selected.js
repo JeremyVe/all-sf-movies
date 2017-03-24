@@ -1,7 +1,7 @@
 import React from 'react';
-import './empty_selection.css';
+import './no_movie_selected.css';
 
-class EmptySelection extends React.Component {
+class NoMovieSelected extends React.Component {
   render() {
     return (
       <div className='empty-selection'>
@@ -11,4 +11,4 @@ class EmptySelection extends React.Component {
   }
 }
 
-export default EmptySelection;
+export default NoMovieSelected;

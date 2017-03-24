@@ -1,8 +1,10 @@
-// let fetch = require('node-fetch')
-// let db = require('../db');
-// let ObjectId = require('mongodb').ObjectId;
-// let geoCodeJob = require('./geocode_job');
-// let movieHelper = require('../utilities/movie_helper');
+// 'use strict';
+// 
+// const fetch = require('node-fetch')
+// const db = require('../db');
+// const ObjectId = require('mongodb').ObjectId;
+// const geoCodeJob = require('./geocode_job');
+// const movieHelper = require('../utilities/movie_helper');
 //
 //
 // exports.checkForContentUpdate = function() {

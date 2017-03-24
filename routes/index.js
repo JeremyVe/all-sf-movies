@@ -1,8 +1,7 @@
-let express = require('express');
-let router = express.Router();
-let path = require('path');
-
-let db = require('../db');
+const express = require('express');
+const router = express.Router();
+const path = require('path');
+const db = require('../db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

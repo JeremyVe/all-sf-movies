@@ -1,11 +1,11 @@
-let movie_helper = require('../../utilities/movie_helper');
-let mocha = require('mocha');
-let chai = require('chai');
-let sinon = require('sinon');
-let expect = chai.expect;
-let Movie = require('../../models/movie');
-let Location = require('../../models/location');
-let ObjectId = require('mongodb').ObjectId;
+const movie_helper = require('../../utilities/movie_helper');
+const mocha = require('mocha');
+const chai = require('chai');
+const sinon = require('sinon');
+const expect = chai.expect;
+const Movie = require('../../models/movie');
+const Location = require('../../models/location');
+const ObjectId = require('mongodb').ObjectId;
 
 describe('#cleanAddress', function() {
   it('should clean an address with "between"', function() {

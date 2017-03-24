@@ -1,7 +1,7 @@
 import React from 'react';
 import AddressList from './address_list/address_list';
 import MovieInfo from './movie_info/movie_info';
-import EmptySelection from './empty_selection/empty_selection';
+import NoMovieSelected from './no_movie_selected/no_movie_selected';
 import './panel_info.css';
 
 class PanelInfo extends React.Component {
@@ -9,13 +9,13 @@ class PanelInfo extends React.Component {
     let panel = Object.keys(this.props.movie).length > 0 ?
       (
         <div>
-          <MovieInfo movie={this.props.movie}/>
-          <AddressList locations={this.props.locations}/>
+          <MovieInfo movie={this.props.movie} />
+          <AddressList locations={this.props.locations} selectLocation={this.props.selectLocation} />
         </div>
       ) :
       (
         <div>
-          <EmptySelection />
+          <NoMovieSelected />
         </div>
       )
     return (
@@ -29,6 +29,7 @@ class PanelInfo extends React.Component {
 PanelInfo.propTypes = {
   movie: React.PropTypes.object.isRequired,
   locations: React.PropTypes.array.isRequired,
+  selectLocation: React.PropTypes.func.isRequired,
 }
 
 export default PanelInfo;

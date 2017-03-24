@@ -1,6 +1,43 @@
 import React from 'react';
 import './map.css';
 
+
+// Helpers
+
+const deleteOldMarker = markers => {
+  markers.forEach(marker => {
+    marker.setMap(null);
+  })
+  markers = [];
+}
+
+const setMarkers = (map, locations) => {
+  let markers = [];
+
+  locations.forEach(location => {
+    let latLng = new window.google.maps.LatLng(location.lat, location.lng);
+    let marker = new window.google.maps.Marker({
+      position: latLng,
+      title: location.address,
+      id: location._id
+    })
+    marker.setMap(map);
+    markers.push(marker);
+  })
+  return markers
+}
+
+const findMarker = (markers, id) => {
+  return markers.find(marker => marker.id === id);
+}
+
+const setInfoWindow = (map, infowindow, marker) => {
+  infowindow.setContent(marker.title);
+  infowindow.open(map, marker);
+}
+
+
+
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -13,37 +50,34 @@ class Map extends React.Component {
       zoom: 12,
       center: sf
     })
+    this.infowindow = new window.google.maps.InfoWindow({});
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.locations !== nextProps.locations) {
-      this.markers.forEach(marker => {
-        marker.setMap(null);
-      })
-      this.markers = [];
+      deleteOldMarker(this.markers);
+      this.markers = setMarkers(this.map, nextProps.locations);
+    }
 
-      nextProps.locations.forEach(location => {
-        let latLng = new window.google.maps.LatLng(location.lat, location.lng);
-        let marker = new window.google.maps.Marker({
-          position: latLng,
-          title: location.address
-        })
-        marker.setMap(this.map);
-        this.markers.push(marker);
-      })
+    if (this.props.selectedLocationId !== nextProps.selectedLocationId) {
+      let marker = findMarker(this.markers, nextProps.selectedLocationId);
+      setInfoWindow(this.map, this.infowindow, marker);
     }
   }
 
-  render() {
 
+
+  render() {
     return (
       <div id='map'>Map !</div>
     )
   }
 }
 
+
 Map.propTypes = {
-  locations: React.PropTypes.array.isRequired
+  locations: React.PropTypes.array.isRequired,
+  selectedLocationId: React.PropTypes.string.isRequired
 }
 
 export default Map;

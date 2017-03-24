@@ -1,5 +1,7 @@
-let fs = require('fs');
-let path = require('path');
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
 const FILE_PATH = path.join(__dirname, '..', 'data', 'movies.json');
 
 exports.write = movies => {

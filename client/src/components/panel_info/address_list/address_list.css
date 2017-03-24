@@ -4,7 +4,12 @@
 }
 
 .list-item h3 {
+  pointer-events: none;
   font-weight: 100;
+}
+
+list-item p {
+  pointer-events: none;
 }
 
 .list-item {

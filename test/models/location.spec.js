@@ -1,12 +1,12 @@
-let Location = require('../../models/location');
-let db = require('..//../db');
-let async = require('async');
-let ObjectId = require('mongodb').ObjectId;
-let config = require('../../config');
-let mocha = require('mocha');
-let chai = require('chai');
-let sinon = require('sinon');
-let expect = chai.expect;
+const Location = require('../../models/location');
+const db = require('..//../db');
+const async = require('async');
+const ObjectId = require('mongodb').ObjectId;
+const config = require('../../config');
+const mocha = require('mocha');
+const chai = require('chai');
+const sinon = require('sinon');
+const expect = chai.expect;
 
 describe('Location', function() {
   let id = ObjectId();
