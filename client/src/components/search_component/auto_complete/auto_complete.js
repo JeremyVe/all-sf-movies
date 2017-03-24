@@ -30,7 +30,9 @@ class AutoComplete extends React.Component {
 }
 
 AutoComplete.propTypes = {
-
+  movies: React.PropTypes.array.isRequired,
+  hideList: React.PropTypes.bool.isRequired,
+  searchMovie: React.PropTypes.func.isRequired,
 }
 
 export default AutoComplete;

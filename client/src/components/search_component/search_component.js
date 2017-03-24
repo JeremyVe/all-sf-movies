@@ -22,14 +22,16 @@ class Search extends React.Component {
   }
 
   searchMovie = searchText => {
+    console.log('hello kimmm')
     const movieResult = this.props.movies.find(movie => movie.title.toLowerCase().includes(searchText));
     if (!!movieResult) {
       this.setState({
         movieTitle: movieResult.title,
         hideAutoComplete: true
       })
-      this.props.getMovie(movieResult._id);
+      return this.props.getMovie(movieResult._id);
     }
+    return this.props.resetMovie();
   }
 
   hideAutoComplete = () => {
@@ -42,8 +44,7 @@ class Search extends React.Component {
   render() {
     return (
       <div className='search'>
-        <SearchBar movieTitle={this.state.movieTitle}
-                   updateAutoComplete={this.updateAutoComplete}
+        <SearchBar updateAutoComplete={this.updateAutoComplete}
                    hideAutoComplete={this.hideAutoComplete}
                    searchMovie={this.searchMovie} />
         <AutoComplete movies={this.state.autoCompleteList}
@@ -57,6 +58,7 @@ class Search extends React.Component {
 Search.propTypes = {
   movies: React.PropTypes.array.isRequired,
   getMovie: React.PropTypes.func.isRequired,
+  resetMovie: React.PropTypes.func.isRequired,
 }
 
 export default Search;

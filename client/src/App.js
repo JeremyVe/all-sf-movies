@@ -38,6 +38,12 @@ class App extends Component {
     })
   }
 
+  resetMovie = () => {
+    this.setState({
+      movie: {}
+    })
+  }
+
   componentDidMount() {
     this.getMovies();
   }
@@ -51,7 +57,7 @@ class App extends Component {
           <div className='App'>
             <Map locations={this.state.locations} />
             <div className='search-panel'>
-              <SearchComponent movies={this.state.movies} getMovie={this.getMovie} />
+              <SearchComponent movies={this.state.movies} getMovie={this.getMovie} resetMovie={this.resetMovie} />
               <PanelInfo movie={this.state.movie} locations={this.state.locations} />
             </div>
           </div>

@@ -19,7 +19,7 @@ class SearchBar extends React.Component {
   inhideAutoComplete = () => {
     setTimeout(() => {
       this.props.hideAutoComplete();
-    }, 1000)
+    }, 50)
   }
 
   searchMovie = () => {
@@ -36,6 +36,12 @@ class SearchBar extends React.Component {
       </div>
     )
   }
+}
+
+SearchBar.propTypes = {
+  updateAutoComplete: React.PropTypes.func.isRequired,
+  hideAutoComplete: React.PropTypes.func.isRequired,
+  searchMovie: React.PropTypes.func.isRequired,
 }
 
 export default SearchBar;
