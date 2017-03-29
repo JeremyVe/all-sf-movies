@@ -8,6 +8,8 @@ const movieHelper = require('../utilities/movie_helper');
 
 const createSeedData = function() {
   movieHelper.getMovieData()
+  .then(movies => movies.filter(movie => movie.locations))
+  .then(movies => cleanAddresses(movies))
   .then(movies => geocode(movies))
   .catch(err => {
     console.log('error fetching movies data', err)
@@ -16,16 +18,15 @@ const createSeedData = function() {
 
 
 const geocode = movies => {
-  for (let i = 0; i < 10; i++) {
-    let movie = movies[i];
-  // movies.forEach(movie => {
-    if (movie.locations) { // skip movies without addresses
-      movie.clean_address = movieHelper.cleanAddress(movie.locations);
-      geocoder.addJob(movie);
-    }
-  // })
-  }
-  geocoder.startGeoCoding(writeToJson);
+  geocoder.startGeoCoding(movies, writeToJson);
+}
+
+
+const cleanAddresses = movies => {
+  return movies.map(movie => {
+    movie.clean_address = movieHelper.cleanAddress(movie.locations)
+    return movie;
+  })
 }
 
 

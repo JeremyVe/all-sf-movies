@@ -6,6 +6,7 @@ const movieHelper = require('../utilities/movie_helper');
 const config = require('../config');
 const async = require('async');
 
+
 const seedDatabase = () => {
   db.connect(config.DB_HOST, function(err) {
     if (err) {
@@ -29,6 +30,8 @@ const saveMovies = () => {
 
 
 const saveMovie = (movie, callback) => {
+  if (!movie.lat) return;
+
   movie.clean_title = movieHelper.cleanTitle(movie.title);
 
   movieHelper.getByTitle(movie.clean_title)
